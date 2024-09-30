@@ -106,22 +106,3 @@ pub enum NodeType {
     Decrement,
     Error
 }
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct TreeNode {
-    node_type: globals::NodeType,
-    token: Option<TokenType>,
-    value: Option<String>,
-    children: Vec<TreeNode>,
-}
-
-pub impl TreeNode {
-    pub fn new(node_type: NodeType) -> Self {
-        TreeNode {
-            node_type,
-            token: None,
-            value: None,
-            children: Vec::new(),
-        }
-    }
-}

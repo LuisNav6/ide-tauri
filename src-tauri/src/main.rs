@@ -4,12 +4,31 @@
 use std::fs;
 use std::io::Write; // Importa el trait Write
 use std::sync::Mutex;
-
+use crate::globals::TokenType;
+use crate::globals::StateType;
+use crate::globals::NodeType;
 
 mod globals;
 mod scan;
 mod parse;
 
+impl TreeNode {
+    fn new(node_type: NodeType) -> Self {
+        TreeNode {
+            node_type,
+            token: None,
+            value: None,
+            children: Vec::new(),
+        }
+    }
+}
+
+#[macro_use]
+extern crate lazy_static;
+
+lazy_static! {
+    static ref ERRORS: Mutex<Vec<String>> = Mutex::new(Vec::new());
+}
 
 #[tauri::command]
 fn lexic(content: String) -> Result<(Vec<(TokenType, String, usize, usize)>, Vec<(TokenType, String, usize, usize)>), String> {
